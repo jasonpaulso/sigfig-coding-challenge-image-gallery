@@ -1,82 +1,91 @@
 <div id="gallery"></div>
 
 
-  <style type="text/css" media="screen">
-    #gallery {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .imageBox.over {
-  border: 2px dashed #000;
-}
-.imageBox {
-  cursor: move;
+<style type="text/css" media="screen">
+  #gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin:0 auto;
+    align-items: center;
+    justify-content: center;
+    width:90vw;
+    height: 90vh;
+  }
+  .imageBox {
+    cursor: move;
     display: inline-block;
-}
+  }
 
-#gallery {
-  line-height: 0;
-}
+  #gallery {
+    line-height: 0;
+  }
 
-
-
-  </style>
+</style>
 
 
 <script>
 
-var request = new XMLHttpRequest();
-request.open('GET', '/gallery.json', true);
+  var request = new XMLHttpRequest();
+  request.open('GET', '/gallery.json', true);
 
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) {
-    var data = JSON.parse(request.responseText);
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      var data = JSON.parse(request.responseText);
       if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
           var image = data[i];
-          var imageUrl = image.url
-          var imageElement = $('<div class="imageBox" draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">' + "<img src='/gallery/" + imageUrl + ".png'>" );
-          $('#gallery').append(imageElement);
+          var imageUrl = image.url;
+          var imageDiv = document.createElement("div");
+          imageDiv.className = "imageBox";
+          var image = document.createElement('img');
+          var draggableAtt = document.createAttribute("draggable");
+          draggableAtt.value = "true";
+          image.setAttributeNode(draggableAtt);
+          var onDragEnterAtt = document.createAttribute("ondragenter");
+          onDragEnterAtt.value = "dragenter(event)";
+          image.setAttributeNode(onDragEnterAtt);
+          var onDragStartAtt = document.createAttribute("ondragstart");
+          onDragStartAtt.value = "dragstart(event)";
+          image.setAttributeNode(onDragStartAtt);
+          image.src = '/gallery/' + imageUrl + '.png';
+          imageDiv.appendChild(image);
+          document.getElementById('gallery').appendChild(imageDiv);
         }
       } 
-  } 
-};
+    } 
+  };
 
 
+  request.send();
 
-request.send();
 
+  var source;
 
-var source;
-
-function isbefore(a, b) {
+  function isbefore(a, b) {
     if (a.parentNode == b.parentNode) {
-        for (var cur = a; cur; cur = cur.previousSibling) {
-            if (cur === b) { 
-                return true;
-            }
+      for (var cur = a; cur; cur = cur.previousSibling) {
+        if (cur === b) { 
+          return true;
         }
+      }
     }
     return false;
-} 
+  } 
 
-function dragenter(e) {
+  function dragenter(e) {
     if (isbefore(source, e.target)) {
-        e.target.parentNode.insertBefore(source, e.target);
+      e.target.parentNode.insertBefore(source, e.target);
     }
     else {
-        e.target.parentNode.insertBefore(source, e.target.nextSibling);
+      e.target.parentNode.insertBefore(source, e.target.nextSibling);
     }
-}
+  }
 
-function dragstart(e) {
+  function dragstart(e) {
     source = e.target;
     e.dataTransfer.effectAllowed = 'move';
-}
+  }
 
 </script>
 
