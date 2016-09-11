@@ -17,10 +17,9 @@ function loadGallery() {
         for (var i = 0; i < data.length; i++) {
           var image = data[i];
           var imageUrl = image.url
-          var imageLink = "/images/" + imageUrl;
-          var imageDiv = $('<div/>');
-          imageDiv.append("<img src='" + imageLink + "'");
+          var imageDiv = $('<div>' + "<img src='/gallery/" + imageUrl + ".png'>" );
           $('.gallery').append(imageDiv);
+          console.log(imageDiv);
         }
       } else {
       }
