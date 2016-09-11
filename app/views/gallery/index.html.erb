@@ -1,0 +1,30 @@
+<div class="gallery"></div>
+
+<script>
+  $('.gallery.index').ready(function(){
+    loadGallery();
+  });
+
+
+function loadGallery() {
+  // event.preventDefault();
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/gallery",
+    success: function(data){
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+          var image = data[i];
+          var imageUrl = image.url
+          var imageLink = "/images/" + imageUrl;
+          var imageDiv = $('<div/>');
+          imageDiv.append("<img src='" + imageLink + "'");
+          $('.gallery').append(imageDiv);
+        }
+      } else {
+      }
+    }
+  });
+}
+</script>
