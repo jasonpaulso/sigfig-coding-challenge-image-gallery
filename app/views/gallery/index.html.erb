@@ -9,13 +9,16 @@
       align-items: center;
       justify-content: center;
     }
+
+    .imageBox.over {
+  border: 2px dashed #000;
+}
   </style>
 
 <script>
   $('.gallery.index').ready(function(){
     loadGallery();
   });
-
 
 function loadGallery() {
   // event.preventDefault();
@@ -28,9 +31,8 @@ function loadGallery() {
         for (var i = 0; i < data.length; i++) {
           var image = data[i];
           var imageUrl = image.url
-          var imageDiv = $('<div>' + "<img src='/gallery/" + imageUrl + ".png'>" );
-          $('.gallery').append(imageDiv);
-          console.log(imageDiv);
+          var imageElement = $('<div class="imageBox">' + "<img draggable='true' src='/gallery/" + imageUrl + ".png'>" );
+          $('.gallery').append(imageElement);
         }
       } else {
       }
