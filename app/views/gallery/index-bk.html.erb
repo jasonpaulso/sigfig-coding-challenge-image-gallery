@@ -1,0 +1,82 @@
+<div id="gallery"></div>
+
+
+  <style type="text/css" media="screen">
+    #gallery {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .imageBox.over {
+  border: 2px dashed #000;
+}
+.imageBox {
+  cursor: move;
+  border: 2px dashed #000;
+}
+
+  </style>
+
+
+<script>
+  $('.gallery.index').ready(function(){
+    loadGallery();
+  });
+
+function loadGallery() {
+  // event.preventDefault();
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/gallery",
+    success: function(data){
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+          var image = data[i];
+          var imageUrl = image.url
+          var imageElement = $('<div class="imageBox" draggable="true" ondragstart="dragStarted(event)" ondragover="draggingOver(event)" ondrop="dropped(event)">' + "<img src='/gallery/" + imageUrl + ".png'>" );
+          $('#gallery').append(imageElement);
+        }
+      } else {
+      }
+    }
+  });
+}
+
+
+var source;
+
+function dragStarted(event){
+  // alert("Dragging");
+  //start drag
+  source = event.target;
+  //set data
+  event.dataTransfer.setData("text", event.target.innerHTML);
+  //specify allowed transfer
+  event.dataTransfer.effectAllowed = "move";
+  console.log("source")
+
+}
+function draggingOver(event){
+//drag over
+event.preventDefault();
+//specify operation
+event.dataTransfer.dropEffect = "move";
+console.log("target");
+}
+
+function dropped(event){
+//drop
+event.preventDefault();
+event.stopPropagation();
+//update text in dragged item
+source.innerHTML = event.target.innerHTML;
+//update text in drop target
+event.target.innerHTML = event.dataTransfer.getData("text");
+}
+
+</script>
+

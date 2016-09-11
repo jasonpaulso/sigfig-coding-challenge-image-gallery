@@ -1,8 +1,8 @@
-<div class="gallery"></div>
+<div id="gallery"></div>
 
 
   <style type="text/css" media="screen">
-    .gallery {
+    #gallery {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -13,30 +13,70 @@
     .imageBox.over {
   border: 2px dashed #000;
 }
+.imageBox {
+  cursor: move;
+    display: inline-block;
+}
+
+#gallery {
+  line-height: 0;
+}
+
+
+
   </style>
 
-<script>
-  $('.gallery.index').ready(function(){
-    loadGallery();
-  });
 
-function loadGallery() {
-  // event.preventDefault();
-  $.ajax({
-    type: "GET",
-    dataType: "json",
-    url: "/gallery",
-    success: function(data){
+<script>
+
+var request = new XMLHttpRequest();
+request.open('GET', '/gallery.json', true);
+
+request.onload = function() {
+  if (request.status >= 200 && request.status < 400) {
+    var data = JSON.parse(request.responseText);
       if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
           var image = data[i];
           var imageUrl = image.url
-          var imageElement = $('<div class="imageBox">' + "<img draggable='true' src='/gallery/" + imageUrl + ".png'>" );
-          $('.gallery').append(imageElement);
+          var imageElement = $('<div class="imageBox" draggable="true" ondragenter="dragenter(event)" ondragstart="dragstart(event)">' + "<img src='/gallery/" + imageUrl + ".png'>" );
+          $('#gallery').append(imageElement);
         }
-      } else {
-      }
+      } 
+  } 
+};
+
+
+
+request.send();
+
+
+var source;
+
+function isbefore(a, b) {
+    if (a.parentNode == b.parentNode) {
+        for (var cur = a; cur; cur = cur.previousSibling) {
+            if (cur === b) { 
+                return true;
+            }
+        }
     }
-  });
+    return false;
+} 
+
+function dragenter(e) {
+    if (isbefore(source, e.target)) {
+        e.target.parentNode.insertBefore(source, e.target);
+    }
+    else {
+        e.target.parentNode.insertBefore(source, e.target.nextSibling);
+    }
 }
+
+function dragstart(e) {
+    source = e.target;
+    e.dataTransfer.effectAllowed = 'move';
+}
+
 </script>
+
