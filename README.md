@@ -8,6 +8,8 @@ This app is built with Rails, HTML5, and JavaScript.
 
 The app may be accessed via [sigfig-gallery-challenge.herokuapp.com](https://sigfig-gallery-challenge.herokuapp.com)
 
+Most relevant file located @ sigfig-coding-challenge-image-gallery/app/views/gallery/index.html.erb
+
 General steps to developing this app were:
   * set up new Rails app
   * create image model
