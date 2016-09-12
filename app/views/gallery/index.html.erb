@@ -51,7 +51,7 @@
           var onDragStartAtt = document.createAttribute("ondragstart");
           onDragStartAtt.value = "dragstart(event)";
           image.setAttributeNode(onDragStartAtt);
-          image.src = '/gallery/' + imageUrl + '.png';
+          image.src = '/gallery/' + imageUrl;
           imageDiv.appendChild(image);
           document.getElementById('gallery').appendChild(imageDiv);
         }

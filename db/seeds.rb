@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-gallery = [*1..12]
+gallery = Dir.glob("app/assets/images/gallery/*")
 
 gallery.each do |image|
-  Image.create(url: image)
+  file_name = File.basename image
+  Image.create(url: file_name)
 end
 
