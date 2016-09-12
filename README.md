@@ -6,7 +6,7 @@ The small styles and scripts are kept within the erb file for ease of review.
 
 This app is built with Rails, HTML5, and JavaScript.
 
-The app may be accessed via sigfig-gallery-challenge.herokuapp.com
+The app may be accessed via [sigfig-gallery-challenge.herokuapp.com](https://sigfig-gallery-challenge.herokuapp.com)
 
 This app may also be run cloning this repo, and running the following commands in your terminal:
   (Please note you will need to have Rails installed and Postgres running on your machine.)
