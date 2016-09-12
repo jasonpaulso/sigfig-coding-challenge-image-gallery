@@ -1,93 +1,3 @@
-<!-- <div id="gallery"></div>
-
-<style type="text/css" media="screen">
-  #gallery {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin:0 auto;
-    align-items: center;
-    justify-content: center;
-    width:90vw;
-    height: 90vh;
-    line-height: 0;
-  }
-  .imageBox {
-    cursor: move;
-
-  }
-
-
-</style>
-
-
-<script>
-
-  var request = new XMLHttpRequest();
-  request.open('GET', '/gallery.json', true);
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      var data = JSON.parse(request.responseText);
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-          var image = data[i];
-          var imageUrl = image.url;
-          var imageDiv = document.createElement("div");
-          imageDiv.className = "imageBox";
-          var image = document.createElement('img');
-          var draggableAtt = document.createAttribute("draggable");
-          draggableAtt.value = "true";
-          image.setAttributeNode(draggableAtt);
-          var onDragEnterAtt = document.createAttribute("ondragenter");
-          onDragEnterAtt.value = "dragenter(event)";
-          image.setAttributeNode(onDragEnterAtt);
-          var onDragStartAtt = document.createAttribute("ondragstart");
-          onDragStartAtt.value = "dragstart(event)";
-          image.setAttributeNode(onDragStartAtt);
-          image.src = '/gallery/' + imageUrl + '.png';
-          imageDiv.appendChild(image);
-          document.getElementById('gallery').appendChild(imageDiv);
-        }
-      } 
-    } 
-  };
-// above adapted from http://youmightnotneedjquery.com/#json
-
-  request.send();
-
-  var source;
-
-  function isbefore(a, b) {
-    if (a.parentNode == b.parentNode) {
-      for (var cur = a; cur; cur = cur.previousSibling) {
-        if (cur === b) { 
-          return true;
-        }
-      }
-    }
-    return false;
-  } 
-
-  function dragenter(e) {
-    if (isbefore(source, e.target)) {
-      e.target.parentNode.insertBefore(source, e.target);
-    }
-    else {
-      e.target.parentNode.insertBefore(source, e.target.nextSibling);
-    }
-  }
-
-  function dragstart(e) {
-    source = e.target;
-    e.dataTransfer.effectAllowed = 'move';
-  }
-
-  // above adapted from http://stackoverflow.com/questions/10588607/tutorial-for-html5-dragdrop-sortable-list
-
-</script>
-
- -->
 <div class="container">
 <div class="gallery-container">
   <ul id="gallery"></ul>
@@ -96,26 +6,18 @@
  
 
 <style type="text/css" media="screen">
-  .gallery-container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 
   ul {
-
-    display:inline-block;
+    padding-top: 14vh;
     list-style: none; 
     line-height: 0;
-    padding-left: 09vw;
-    white-space: nowrap;
-   
-
+    margin: 0 auto;
+    padding-left: 10vw;
+    width: 80%;
   }
+
   ul li {
-    display: inline;
+    display:inline-block;
     cursor: move;
     float: left;
     padding: 0;
@@ -173,18 +75,18 @@
     return false;
   } 
 
-  function dragenter(e) {
-    if (isbefore(source, e.target)) {
-      e.target.parentNode.insertBefore(source, e.target);
+  function dragenter(event) {
+    if (isbefore(source, event.target)) {
+      event.target.parentNode.insertBefore(source, event.target);
     }
     else {
-      e.target.parentNode.insertBefore(source, e.target.nextSibling);
+      event.target.parentNode.insertBefore(source, event.target.nextSibling);
     }
   }
 
-  function dragstart(e) {
-    source = e.target;
-    e.dataTransfer.effectAllowed = 'move';
+  function dragstart(event) {
+    source = event.target;
+    event.dataTransfer.effectAllowed = 'move';
   }
 
   // above adapted from http://stackoverflow.com/questions/10588607/tutorial-for-html5-dragdrop-sortable-list
