@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a small app demostrating a JavaScript only solution to the challenge of creating an image gallery with drag & drop reordering functionality. The resources used to implement this functionality are indicated within the comments of the gallery/index file.
 
-Things you may want to cover:
+The small styles and scripts are kept within the erb file for ease of review.
 
-* Ruby version
+This app is built with Rails, HTML5, and JavaScript.
 
-* System dependencies
+The app may be accessed via sigfig-gallery-challenge.herokuapp.com
 
-* Configuration
+This app may also be run cloning this repo, and running the following commands in your terminal:
+  (Please note you will need to have Rails installed and Postgres running on your machine.)
+  * rake db:create
+  * rake db:migrate
+  * rake db:seed
+  * rails s
+  * visit the provided url (usually localhost:3000) with your Chrome browser.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+TODOs:
+  * improve cross-browser usibility
+  * improve alignment for some diagonal drag/drop events.
+  * ...
