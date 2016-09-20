@@ -2,7 +2,7 @@
 
 This is a small app demostrating a JavaScript only solution to the challenge of creating an image gallery with drag & drop reordering functionality. The resources used to implement this functionality are indicated within the comments of the gallery/index file.
 
-The small styles and scripts are kept within the erb file for ease of review.
+The css/styles and js/scripts are kept within the erb file for ease of review - ideally they would be moved to external sheets.
 
 This app is built with Rails, HTML5, and JavaScript.
 
